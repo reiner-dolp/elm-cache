@@ -1,0 +1,18 @@
+{
+    "type": "package",
+    "name": "reiner-dolp/elm-cache",
+    "summary": "a LRU cache, designed to cache data obtained over HTTP",
+    "license": "UNLICENSED",
+    "version": "1.0.0",
+    "exposed-modules": [
+        "Cache",
+        "Http.Cache"
+    ],
+    "elm-version": "0.19.0 <= v < 0.20.0",
+    "dependencies": {
+        "elm/core": "1.0.0 <= v < 2.0.0",
+        "elm/http": "1.0.0 <= v < 2.0.0",
+        "elm/json": "1.0.0 <= v < 2.0.0"
+    },
+    "test-dependencies": {}
+}
