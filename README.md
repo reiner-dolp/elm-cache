@@ -4,15 +4,14 @@ byte. Data is cached *after* parsing in RAM.
 
 Only use this if the lifetime of data is hard to judge and temporal in nature,
 e.g. the next request is triggered by user interactions and a more recent
-request is more likely to occurr again. This is for example the case if a user
+request is more likely to occur again. This is for example the case if a user
 navigates through pages of your Elm application and uses the back button. 
 
-To speed up initial page loads, you can also do predictive page loading by
-executing requests for possible next pages and inserting them into the cache.
+To speed up initial page loads, you can also do predictive/speculative page
+loading by executing requests for possible next pages and inserting them into
+the cache.
 
---
-**NOTE**: alpha release. Not in the Elm package manager yet.
---
+> **NOTE**: alpha release. Not in the Elm package manager yet.
 
 ```elm
 -- PSEUDOCODE FOR USAGE
