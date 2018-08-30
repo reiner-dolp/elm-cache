@@ -2,7 +2,7 @@
     "type": "package",
     "name": "reiner-dolp/elm-cache",
     "summary": "a LRU cache, designed to cache data obtained over HTTP",
-    "license": "UNLICENSED",
+    "license": "MIT",
     "version": "1.0.0",
     "exposed-modules": [
         "Cache",
