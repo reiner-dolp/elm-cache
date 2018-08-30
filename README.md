@@ -1,6 +1,11 @@
-A LRU cache, primarily designed to cache parsed data obtained over HTTP to
-speed up navigation inside an Elm SPA. Maximum cache size can be specified in
+**A LRU cache, primarily designed to cache parsed data obtained over HTTP to
+speed up navigation inside an Elm SPA**. Maximum cache size can be specified in
 byte. Data is cached *after* parsing in RAM.
+
+![Status of direct dependencies](https://reiner-dolp.github.io/elm-badges/reiner-dolp/elm-cache/dependencies.svg)
+![Latest Elm version supported](https://reiner-dolp.github.io/elm-badges/reiner-dolp/elm-cache/elm-version.svg)
+![License of the package](https://reiner-dolp.github.io/elm-badges/reiner-dolp/elm-cache/license.svg)
+![Latest version of the package](https://reiner-dolp.github.io/elm-badges/reiner-dolp/elm-cache/version.svg)
 
 Only use this if the lifetime of data is hard to judge and temporal in nature,
 e.g. the next request is triggered by user interactions and a more recent
@@ -10,8 +15,6 @@ navigates through pages of your Elm application and uses the back button.
 To speed up initial page loads, you can also do predictive/speculative page
 loading by executing requests for possible next pages and inserting them into
 the cache.
-
-> **NOTE**: alpha release. Not in the Elm package manager yet.
 
 ```elm
 type Status
