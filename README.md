@@ -14,23 +14,66 @@ the cache.
 > **NOTE**: alpha release. Not in the Elm package manager yet.
 
 ```elm
--- PSEUDOCODE FOR USAGE
+type Status
+    = Loading
+    | Loaded a
+    | Failure
 
-decodeData = ...
+statusFromResult : Result e a -> Status a
+statusFromResult result =
+    case result of
+        Ok val ->
+            Loaded val
 
-cache =
+        Err reason ->
+            Failed
+
+-- SPA Main: Add a cache object to the model
+
+type alias Model = {
+    data: Page,
+    cache: NetworkCache
+    }
+
+initialCache : NetworkCache
+initialCache =
     Http.Cache.empty (MegaByte 2)
 
-update msg model =
-    case msg of
-        LoadPageDataFrom url ->
-            case Http.cache.request model.cache url of
-                Cached response -> ({ model | data = response })
-                NoCache request -> (model, Http.send <| RecievePageDataFor url request)
+-- in the page of your SPA: recieve and send back the cache object
 
-        RecievePageDataFor url response ->
-            let 
-               (newCache, data) = Http.cache.response model.cache url response decodeData
-            in
-            ({model | data = response, cache = newCache}, Cmd.none)
+type Msg
+    = LoadedUrl Url CacheRequestResult
+
+url : String
+url = "http://example.org/thing.json"
+
+
+init : NetworkCache -> ( Model, Cmd Msg )
+init cache =
+    let
+        cacheRequest =
+            NetworkCache.request cache url
+    in
+    case cacheRequest of
+        Cached value ->
+            (statusFromResult value, Cmd.none)
+
+        NoCache request ->
+            (Loading, Http.send (LoadedUrl url) request)
+
+update : Msg -> Model -> (Model, NetworkCache, Cmd Msg)
+update (LoadedUrl url response) cache =
+    let
+        ( newCache, result ) =
+            NetworkCache.textResponse cache url response
+    in
+    (statusFromResult result, newCache, Cmd.none )
+
+view : Model -> Html msg
+view model =
+    case model of
+        Loading -> text "loading"
+        Failure -> text "failure"
+        Loaded data -> text <| "loaded: " ++ Debug.toString data
+
 ```
